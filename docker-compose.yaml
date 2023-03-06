@@ -1,0 +1,25 @@
+version: '3'
+services:
+  db:
+    image: postgres:9.6
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: postgres
+      POSTGRES_DB: auth
+    ports:
+      - '5433:5432'
+  auth:
+    build: .
+    restart: always
+    ports:
+      - '8000:8000'
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASSWORD: password
+      DB_NAME: auth
+  redis:
+    image: redis:alpine
+    ports:
+      - '6378:6379'
