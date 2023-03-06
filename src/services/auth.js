@@ -44,10 +44,10 @@ const generateJwtToken = async (username) => {
 };
 
 const validateUserToken = async (reqToken) => {
-  const decoded = validateToken(reqToken);
-  await getToken();
-
-  return decoded;
+  const decodedReqToken = validateToken(reqToken);
+  const storedToken = await getToken();
+  if (storedToken === decodedReqToken) return true;
+  else throw new httpError('Token Validation failed', 401);
 };
 
 module.exports = { createUser, validateUser, generateJwtToken, validateUserToken };

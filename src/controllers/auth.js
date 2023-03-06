@@ -25,21 +25,12 @@ const loginUser = async (req, res) => {
   }
 };
 
-// const validateUserToken = async (req, res) => {
-//   try {
-//     await services.validateUserToken(req.body.token);
-//     res.status(200).json({ message: 'Valid User Token' });
-//   } catch (error) {
-//     res.status(403).json({ message: error.message });
-//   }
-// };
-
 const validateUserToken = async (req, res) => {
   try {
-    await services.validateUserToken(req.body.authorization);
+    await services.validateUserToken(req.headers.authorization);
     res.status(200).json({ message: 'Valid User Token' });
   } catch (error) {
-    res.status(401).json({ message: error.message });
+    res.status(error.status).json({ message: error.message });
   }
 };
 

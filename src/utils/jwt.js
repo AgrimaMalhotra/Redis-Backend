@@ -12,21 +12,14 @@ const generateToken = (userDetail) => {
   return token;
 };
 
-// const validateToken = (token) => {
-//   // const secretKey = process.env.SECRET_KEY;
-//   const Token = token.replace('Bearer ', '');
-//   const secretKey = 'secretUser';
-//   const decoded = jwt.verify(Token, secretKey);
-//   return decoded;
-// };
-
 const validateToken = (token) => {
   // const secretKey = process.env.SECRET_KEY;
+
   const Token = token.replace('Bearer ', '');
   const secretKey = 'secretUser';
   try {
-    const decoded = jwt.verify(Token, secretKey);
-    return decoded;
+    const decodedToken = jwt.verify(Token, secretKey);
+    return decodedToken;
   }
   catch (err) {
     throw new httpError('Failed to verify JWT Token', 401);
